@@ -1,0 +1,43 @@
+#wrap > h1 {
+  font-size: 0px;
+}
+#wrap > h2 {
+  font-size: 0px;
+}
+#header {
+  width: 100%;
+  height: 180px;
+}
+.logo_box {
+  position: fixed;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  max-height: 300px;
+  cursor: pointer;
+}
+.menu_bar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  top: 50px;
+  margin: 0px 0px 0px 400px;
+}
+#wrap header nav ul li {
+  font-size: 35px;
+  margin: 0px 0px 0px 400x;
+  padding: 30px;
+  font-weight: 500;
+  color: black;
+}
+#input_data {
+  width: 200px;
+  font-weight: 800;
+  display: flex;
+
+  margin-left: 100px;
+}
+.section1 {
+  margin-left: 50px;
+}

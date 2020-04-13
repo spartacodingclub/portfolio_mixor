@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portfolio Mixor</title>
+    <link rel="stylesheet" type="text/css" href="./portfolio_mixor/ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <section id="wrap">
+        <h1>Portfolio Mixor</h1>
+        <h2>포트폴리오 믹서</h2>
+        <header id="header">
+            <strong class="logo_box"><img src="./portfolio_mixor/logo.png" alt="포트폴리오"></strong>
+            <nav>
+                <ul class="menu_bar">
+                    <li>
+                        <a href="portfolio_mixor">Backtest</a>
+                    </li>
+                    <li>
+                        <a href="market_cap">시가총액</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <section id="container">
+            <section class="section1">
+                <h1>포트폴리오 믹서기</h1>
+                <p>
+                    아래 빈칸에 포트폴리오 백테스트에 필요한 주식들을 선택하시고, 운용기간과 금액, 비중을 설정해주세요.
+                </p>
+            </section>
+            <section id="input_data">
+                <section class="section2">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">시작연도</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>2000</option>
+                            <option>2002</option>
+                            <option>2003</option>
+                            <option>2004</option>
+                            <option>2005</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">마지막 연도</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                            <option>2017</option>
+                            <option>2016</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <p>시작금액 </p>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">￦</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                    </div>
+                    <div class="ui category search">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Search animals...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+
+                </section>
+            </section>
+        </section>
+    </section>
+
+</body>
+
+</html>
