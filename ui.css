@@ -1,19 +1,14 @@
-#wrap > h1 {
+.fontsize0 {
   font-size: 0px;
 }
-#wrap > h2 {
-  font-size: 0px;
-}
+
 #header {
   width: 100%;
   height: 180px;
 }
 .logo_box {
-  position: fixed;
-  width: auto;
-  height: auto;
-  max-width: 300px;
-  max-height: 300px;
+  position: relative;
+  width: 3000;
   cursor: pointer;
 }
 .menu_bar {
@@ -32,12 +27,25 @@
   color: black;
 }
 #input_data {
-  width: 200px;
+  width: 1000px;
   font-weight: 800;
   display: flex;
 
   margin-left: 100px;
 }
+.form-control .mr-sm-2 {
+  display: flex;
+  width: 300px;
+}
+.fontsize15 {
+  font-size: 15px;
+}
 .section1 {
-  margin-left: 50px;
+  margin-left: 100px;
+}
+.input-group .mb-3 {
+  right: 50px;
+}
+#second_page {
+  display: none;
 }
