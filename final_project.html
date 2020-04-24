@@ -13,39 +13,113 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'X');
+            data.addColumn('number', '원화');
+
+            data.addRows([
+                [2000, 0], [2001, 10], [2002, 23], [2003, 17], [2004, 18], [2005, 9],
+                [2006, 11], [2007, 27], [2008, 33], [2009, 40], [2010, 32], [2011, 35],
+                [2012, 30], [2013, 40], [2014, 42], [2015, 47], [2016, 44], [2017, 48],
+                [2018, 52], [2019, 54], [2020, 42]
             ]);
 
             var options = {
-                title: 'Company Performance',
-                curveType: 'function',
-                legend: { position: 'bottom' }
+                hAxis: {
+                    title: '시간 (연도)'
+                },
+                vAxis: {
+                    title: '포트폴리오 성과'
+                },
+                width: 700,
+                height: 400
+
+
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             chart.draw(data, options);
         }
     </script>
-    <script>
-        function openclose() {
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-            if ($('#second_page').css('display') == 'block') {
-                // post-box를 가리고
-                $('#second_page').hide();
-            } else {
-                // 아니면 post-box를 펴라
-                $('#second_page').show();
-            }
+    <script>
+        function refresh() {
+            location.reload(true)
         }
+
+
+        function openclose() {
+            let x1 = $('#start_money').val()
+            let x2 = $('#stock_1').val()
+            let x3 = $('#portion').val()
+            if ($('#exampleFormControlSelect1').val() >= $('#exampleFormControlSelect2').val()) {
+                alert('시작연도는 마지막 연도 이전이어야 합니다')
+            }
+            else if (x1 == "") {
+                alert("시작금액을 입력하세요");
+                $('#start_money').focus();
+            }
+            else if (x1 != "" && x1 < 100000) {
+                alert('시작금액은 100,000원부터 가능합니다. ');
+                $('#start_moneu').focus();
+            }
+            else if (x1 != "" && x2 == "") {
+                alert("종목을 입력하세요");
+                $('#stock_1').focus();
+            }
+
+            else if (x1 != "" && x2 != "" && x3 == "") {
+                alert("비율을 입력하세요");
+                $('#portion').focus();
+            }
+            else if (x1 != "" && x2 != "" && x3 > 100) {
+                alert('비율은 100 미만이어야 합니다');
+            }
+
+
+            else {
+                $('#second_page').show()
+            }
+
+
+        }
+        $(function () {
+
+            $('input.num_only').on('keyup', function () {
+                var cnt = $(".form-control").length;
+                console.log(cnt);
+
+                for (var i = 1; i < cnt; i++) {
+                    var sum = parseInt($(this).val() || 0);
+                    sum++
+                    console.log(sum);
+                }
+
+                var sum1 = parseInt($("#portion").val() || 0); // input 값을 가져오며 계산하지만 값이 없을경우 0이 대입된다  뒷부분에 ( || 0 ) 없을경우 합계에 오류가 생겨 NaN 값이 떨어진다
+                var sum2 = parseInt($("#portion2").val() || 0);
+                var sum3 = parseInt($("#portion3").val() || 0);
+                var sum4 = parseInt($("#portion4").val() || 0);
+                var sum5 = parseInt($("#portion5").val() || 0);
+                var sum6 = parseInt($("#portion6").val() || 0);
+                var sum7 = parseInt($("#portion7").val() || 0);
+                var sum7 = parseInt($("#portion8").val() || 0);
+                var sum7 = parseInt($("#portion9").val() || 0);
+                var sum7 = parseInt($("#portion10").val() || 0);
+                var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7 + sum8 + sum9 + sum10;
+                console.log(sum);
+                $("#portion_total").val(sum);
+            });
+
+
+
+        });
     </script>
     <script type="text/javascript">
         // Load google charts
@@ -101,26 +175,53 @@
                             <option>2004</option>
                             <option>2005</option>
                             <option>2006</option>
-                            <option>2007</option>
+                            <option>2008</option>
+                            <option>2009</option>
+                            <option>2010</option>
+                            <option>2011</option>
+                            <option>2012</option>
+                            <option>2013</option>
+                            <option>2014</option>
+                            <option>2015</option>
+                            <option>2016</option>
+                            <option>2017</option>
+                            <option>2018</option>
+                            <option>2019</option>
+
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">마지막 연도</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="exampleFormControlSelect2">
                             <option>2020</option>
                             <option>2019</option>
                             <option>2018</option>
                             <option>2017</option>
-                            <option>2016</option>
+                            <option>2015</option>
+                            <option>2014</option>
+                            <option>2013</option>
+                            <option>2012</option>
+                            <option>2011</option>
+                            <option>2010</option>
+                            <option>2009</option>
+                            <option>2008</option>
+                            <option>2007</option>
+                            <option>2006</option>
+                            <option>2005</option>
+                            <option>2004</option>
+                            <option>2003</option>
+                            <option>2002</option>
+                            <option>2001</option>
+
                         </select>
                     </div>
                     <div class="input-group mb-3">
                         <p>시작금액 </p>
-                        <pre></pre>
                         <div class="input-group-prepend">
                             <span class="input-group-text">￦</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ aria-label="Amount (to
+                        the nearest dollar)" id="start_money">
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
@@ -130,7 +231,8 @@
                         style="font-size: 10px; color:black;">
                         <a class="navbar-brand"> 종목 1</a>
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
+                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search"
+                                id="stock_1">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
                             <nav class="navbar navbar-light bg-light">
                                 <form class="form-inline">
@@ -138,8 +240,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" value="" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion">
                                     </div>
                                 </form>
                             </nav>
@@ -156,8 +259,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion2">
                                     </div>
                                 </form>
                             </nav>
@@ -174,8 +278,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion3">
                                     </div>
                                 </form>
                             </nav>
@@ -192,8 +297,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion4">
                                     </div>
                                 </form>
                             </nav>
@@ -210,8 +316,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion5">
                                     </div>
                                 </form>
                             </nav>
@@ -228,8 +335,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion6">
                                     </div>
                                 </form>
                             </nav>
@@ -246,8 +354,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion7">
                                     </div>
                                 </form>
                             </nav>
@@ -264,8 +373,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion8">
                                     </div>
                                 </form>
                             </nav>
@@ -282,8 +392,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion9">
                                     </div>
                                 </form>
                             </nav>
@@ -300,8 +411,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                            aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control"
+                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                            aria-label="Username" aria-describedby="basic-addon1" id="portion10">
                                     </div>
                                 </form>
                             </nav>
@@ -309,26 +421,28 @@
                     </nav>
                     <nav class="navbar navbar-light bg-light justify-content-between">
                         <a class="navbar-brand">총 비율</a>
-
                         <form class="form-inline">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
+                            <div class="input-group" id="space2">
+                                <div class="input-group-prepend" id="space2">
                                     <span class="input-group-text" id="basic-addon1">%</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="비율" aria-label="Username"
-                                    aria-describedby="basic-addon1">
+                                <input id="space3" type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/
+                                    class="form-control" placeholder="비율" aria-label="Username"
+                                    aria-describedby="basic-addon1" style="background-color: rgb(222, 222, 222);"
+                                    id="portion_total">
                             </div>
                         </form>
                     </nav>
-                    <button onclick="openclose()" type="button" class="btn btn-lg btn-primary">분석하기</button>
-                    <button type="button" class="btn btn-secondary btn-lg">취소</button>
-
+                    <div id="button_group">
+                        <button onclick="openclose()" type="button" class="btn btn-lg btn-primary">분석하기</button>
+                        <button onclick="refresh()" type="button" class="btn btn-secondary btn-lg">새로고침</button>
+                    </div>
                 </section>
             </section>
         </section>
         <section id="second_page">
-            <h1>포트폴링오 분석결과</h1>
-            <h2>포트폴리오 구성</h2>
+            <h1>포트폴리오 분석결과</h1>
+            <h3> (1) 포트폴리오 구성</h3>
             <table class="table">
                 <thead>
                     <tr>
@@ -360,7 +474,9 @@
                 </tbody>
             </table>
             <div id="piechart"></div>
-
+            <div>
+                <h3>(2) 퍼포먼스</h3>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -383,7 +499,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div id="curve_chart" style="width: 5000px; height: 700px"></div>
+            <div id="chart_div"></div>
 
         </section>
     </section>

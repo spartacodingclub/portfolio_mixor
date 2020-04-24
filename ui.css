@@ -8,6 +8,7 @@
 }
 .logo_box {
   position: relative;
+  display: flex;
   width: 3000;
   cursor: pointer;
 }
@@ -33,10 +34,7 @@
 
   margin-left: 100px;
 }
-.form-control .mr-sm-2 {
-  display: flex;
-  width: 300px;
-}
+
 .fontsize15 {
   font-size: 15px;
 }
@@ -48,4 +46,22 @@
 }
 #second_page {
   display: none;
+  width: 700px;
+  margin: 35px 0px 0px 100px;
+}
+#wrap {
+  margin-left: 200px;
+}
+
+#button_group {
+  margin-top: 30px;
+}
+
+#curve_chart {
+  display: flex;
+  width: 600px;
+}
+
+#space2 {
+  margin-right: 10px;
 }
