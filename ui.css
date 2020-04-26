@@ -65,3 +65,7 @@
 #space2 {
   margin-right: 10px;
 }
+.ui-autocomplete-loading {
+  background: white url("http://f.goodkiss.co.kr/sample/images/waiting.gif")
+    right center no-repeat;
+}

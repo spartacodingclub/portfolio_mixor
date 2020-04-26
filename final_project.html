@@ -12,6 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+    출처: https://blog.goodkiss.co.kr/entry/jQuery-autocomplete자동완성기능-사용방법-XML-JSON [ollagaza's story]
     <script>
         google.charts.load('current', { packages: ['corechart', 'line'] });
         google.charts.setOnLoadCallback(drawBasic);
@@ -93,7 +99,7 @@
         $(function () {
 
             $('input.num_only').on('keyup', function () {
-                var cnt = $(".form-control").length;
+                var cnt = $(".exam input.num_sum").length;
                 console.log(cnt);
 
                 for (var i = 1; i < cnt; i++) {
@@ -147,6 +153,36 @@
         }
 
     </script>
+    <script>
+        $(function () {
+
+            $('input.num_only').on('keyup', function () {
+                var cnt = $(".exam input.num_sum").length;
+                console.log(cnt);
+
+                for (var i = 1; i < cnt; i++) {
+                    var sum = parseInt($(this).val() || 0);
+                    sum++
+                    console.log(sum);
+                }
+
+                var sum1 = parseInt($("#portion").val() || 0); // input 값을 가져오며 계산하지만 값이 없을경우 0이 대입된다  뒷부분에 ( || 0 ) 없을경우 합계에 오류가 생겨 NaN 값이 떨어진다
+                var sum2 = parseInt($("#portion2").val() || 0);
+                var sum3 = parseInt($("#portion3").val() || 0);
+                var sum4 = parseInt($("#portion4").val() || 0);
+                var sum5 = parseInt($("#portion5").val() || 0);
+                var sum6 = parseInt($("#portion6").val() || 0);
+                var sum7 = parseInt($("#portion7").val() || 0);
+
+                var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
+                console.log(sum);
+                $("#portion_total").val(sum);
+            });
+
+
+
+        });</script>
+
 </head>
 
 <body>
@@ -160,6 +196,8 @@
         <section id="container">
             <section class="section1">
                 <h1>포트폴리오 믹서기</h1>
+
+                </div>
                 <p>
                     아래 빈칸에 포트폴리오 백테스트에 필요한 주식들을 선택하시고, 운용기간과 금액, 비중을 설정해주세요.
                 </p>
@@ -226,213 +264,232 @@
                             <span class="input-group-text">.00</span>
                         </div>
                     </div>
-
-                    <nav class="navbar navbar-light bg-light justify-content-between"
-                        style="font-size: 10px; color:black;">
-                        <a class="navbar-brand"> 종목 1</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search"
-                                id="stock_1">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                    <div class=exam>
+                        <nav class="navbar navbar-light bg-light justify-content-between"
+                            style="font-size: 10px; color:black;">
+                            <a class="navbar-brand"> 종목 1</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search" id="stock_1">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input value="" type="text" value="" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion"
+                                                name="portion">
                                         </div>
-                                        <input type="text" value="" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 2</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 2</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input value="" type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion2"
+                                                name="portion2">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion2">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 3</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 3</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input value="" type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion3"
+                                                name="portion3">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion3">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 4</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 4</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input value="" type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion4"
+                                                name="portion4">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion4">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 5</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 5</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion5"
+                                                name="portion5">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion5">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 6</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 6</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion6"
+                                                name="portion6">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion6">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 7</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 7</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion7"
+                                                name="portion7">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion7">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 8</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 8</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion8">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion8">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 9</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 9</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion9">
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion9">
-                                    </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">종목 10</a>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="종목검색" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
-                            <nav class="navbar navbar-light bg-light">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">%</span>
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">종목 10</a>
+                            <form class="form-inline">
+                                <input class="form-control mr-sm-2 autosearch" type="search" placeholder="종목검색"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">찾기</button>
+                                <nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input type="text" class="form-control num_only num_sum"
+                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
+                                                aria-label="Username" aria-describedby="basic-addon1" id="portion10">
+                                            <div id="han_money" class="text-right"></div>
                                         </div>
-                                        <input type="text" class="form-control"
-                                            onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ placeholder="비율"
-                                            aria-label="Username" aria-describedby="basic-addon1" id="portion10">
+                                    </form>
+                                </nav>
+                            </form>
+                        </nav>
+                        <nav class="navbar navbar-light bg-light justify-content-between">
+                            <a class="navbar-brand">총 비율</a>
+                            <form class="form-inline">
+                                <div class="input-group" id="space2">
+                                    <div class="input-group-prepend" id="space2">
+                                        <span class="input-group-text" id="basic-addon1">%</span>
                                     </div>
-                                </form>
-                            </nav>
-                        </form>
-                    </nav>
-                    <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a class="navbar-brand">총 비율</a>
-                        <form class="form-inline">
-                            <div class="input-group" id="space2">
-                                <div class="input-group-prepend" id="space2">
-                                    <span class="input-group-text" id="basic-addon1">%</span>
+                                    <input id="space3" type="text"
+                                        onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/ class="form-control"
+                                        placeholder="비율" aria-label="Username" aria-describedby="basic-addon1"
+                                        style="background-color: rgb(222, 222, 222);" id="portion_total" readonly>
+                                    <div id="han_money" class="text-right"></div>
                                 </div>
-                                <input id="space3" type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/
-                                    class="form-control" placeholder="비율" aria-label="Username"
-                                    aria-describedby="basic-addon1" style="background-color: rgb(222, 222, 222);"
-                                    id="portion_total">
-                            </div>
-                        </form>
-                    </nav>
+                            </form>
+                        </nav>
+                    </div>
                     <div id="button_group">
                         <button onclick="openclose()" type="button" class="btn btn-lg btn-primary">분석하기</button>
                         <button onclick="refresh()" type="button" class="btn btn-secondary btn-lg">새로고침</button>
